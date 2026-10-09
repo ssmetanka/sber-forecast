@@ -1,0 +1,12 @@
+# Лендинг, отчёт и презентация одной командой — без Python и пересчёта:
+#   docker compose up -d      → http://localhost:8080
+#   docker compose down
+services:
+  landing:
+    image: nginx:1.27-alpine
+    ports:
+      - "${PORT:-8080}:80"
+    volumes:
+      - ./reports:/usr/share/nginx/html:ro
+      - ./docker/landing.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped

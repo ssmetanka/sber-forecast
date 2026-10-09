@@ -1,0 +1,170 @@
+<!doctype html><html lang="ru" data-theme="light"><head><meta charset="utf-8"><title>Сейсмограф трат — презентация</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#ffffff;--bg2:#f3f7f4;--card:#ffffff;--ink:#0b0d0c;--ink2:#46504c;--ink3:#7a8580;--line:#e1e8e3;
+--green:#21a038;--green2:#107f3c;--glow:rgba(33,160,56,.14);--grid:#e8eee9;
+--s1:#21a038;--s2:#0f7f8a;--s3:#8fd19e;--s4:#2b3a33;--s5:#c3ccc7;--neg:#8b9490;--shadow:0 12px 32px rgba(10,40,20,.08)}
+[data-theme=dark]{--bg:#090b0a;--bg2:#101412;--card:#131816;--ink:#f2f5f3;--ink2:#a7b2ad;--ink3:#78837e;--line:#222a26;
+--green:#2bc24a;--green2:#62e27d;--glow:rgba(43,194,74,.16);--grid:#1c2320;
+--s1:#2bc24a;--s2:#38bcc7;--s3:#a5e6b4;--s4:#e6ece8;--s5:#3b4641;--neg:#87928d;--shadow:0 12px 32px rgba(0,0,0,.5)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .4s,color .4s;overflow-x:hidden}
+a{color:var(--green);text-decoration:none}code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:var(--bg2);padding:2px 6px;border-radius:6px}
+
+@page{size:1280px 720px;margin:0}
+html,body{background:var(--bg);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.slide{width:1280px;height:720px;padding:52px 64px 60px;position:relative;overflow:hidden;break-after:page;page-break-after:always;background:var(--bg);display:flex;flex-direction:column}
+.slide:nth-child(even){background:var(--bg2)}
+.slide::before{content:'';position:absolute;right:-160px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%)}
+.slide>*{position:relative}
+.tag{font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+h1{font-size:60px;line-height:1.04;letter-spacing:-.035em;font-weight:800;margin:20px 0 18px}
+h1 em,h2 em{font-style:normal;color:var(--green)}
+h2{font-size:38px;line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:8px 0 4px}
+.lead{font-size:20px;color:var(--ink2);max-width:960px}
+.row{display:grid;gap:22px;flex:1;min-height:0;margin-top:20px}.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;min-height:0}
+.card h3{font-size:18px;margin-bottom:4px}.card>p{color:var(--ink2);font-size:14px}
+.kpi .v{font-size:46px;font-weight:800;color:var(--green);letter-spacing:-.03em;line-height:1.05}.kpi .l{color:var(--ink2);font-size:15px;margin-top:8px}
+.chart{position:relative;flex:1;min-height:0;margin-top:8px}
+.tw{margin-top:8px}table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{color:var(--ink3);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+tr.hl td{font-weight:800}tr.hl td:first-child{color:var(--green)}.good{color:var(--green);font-weight:800}
+ul.clean{list-style:none}ul.clean li{padding:7px 0 7px 24px;position:relative;color:var(--ink2);font-size:15px}
+ul.clean li::before{content:'';position:absolute;left:2px;top:15px;width:9px;height:9px;border-radius:3px;background:var(--green)}ul.clean b{color:var(--ink)}
+.num{width:38px;height:38px;border-radius:11px;background:var(--glow);color:var(--green);font-weight:800;display:grid;place-items:center;margin-bottom:12px}
+.foot{position:absolute;bottom:22px;left:64px;right:64px;display:flex;justify-content:space-between;color:var(--ink3);font-size:12px}
+.foot b{color:var(--green)}
+</style></head><body>
+<section class="slide"><span class="tag">Сейсмограф трат · СберИндекс 2026 · Задача № 2</span>
+<h1>Сейсмограф трат:<br><em>ранние толчки</em> в расходах МО</h1>
+<p class="lead">Прогноз расходов и раннее обнаружение шоков · 2 016 МО × 6 категорий трат · горизонты 1, 3, 6 и 12 месяцев · детектор структурных сдвигов · новости с привязкой к муниципалитетам</p>
+<div class="row c4" id="sKpi" style="flex:none;margin-top:56px"></div><p class="lead" style="margin-top:22px;color:var(--ink)">Автор — <b>Максим Караханов</b></p><div class="foot"><span>Методологический отчёт — reports/methodology.md</span><b>1</b></div></section>
+
+<section class="slide"><span class="tag">Методология</span><h2>Делим расходы на <em>две части</em></h2>
+<p class="lead">Около 70 % колебаний — общая динамика страны. Её берём из панели и национальных рядов СберИндекса с 2018 г.; модели учим на отклонении МО.</p>
+<div class="row c4"><div class="card"><div class="num">1</div><h3>log y = n + d</h3><p>n — медиана по МО: сезонность, инфляция, онлайн-покупки. d — отклонение муниципалитета.</p></div>
+<div class="card"><div class="num">2</div><h3>Ансамбль на d</h3><p>TimesFM-2.5, Chronos-2, LightGBM и простые модели; веса по горизонтам на validation.</p></div>
+<div class="card"><div class="num">3</div><h3>BOCPD на d</h3><p>Байесовский детектор разрывов; порог — 3 ложные тревоги на 100 ряд-месяцев.</p></div>
+<div class="card"><div class="num">4</div><h3>Новости → hazard</h3><p>Сообщения о ЧС по месту и дате публикации повышают априорную вероятность разрыва.</p></div></div>
+<div class="foot"><span>Максим Караханов · 18 точек прогноза · test — июль–декабрь 2024 · только прошлое на каждом шаге</span><b>2</b></div></section>
+
+<section class="slide"><span class="tag">Прогноз</span><h2>Точнее Prophet на <em>всех горизонтах</em></h2>
+<div class="row c2"><div class="card"><h3>MAE по горизонтам, вся панель (12 096 рядов)</h3><p>₽ на жителя в месяц; пунктир — Prophet</p><div class="chart"><canvas id="chMae"></canvas></div></div>
+<div class="card"><h3>Значимость разницы</h3><p>95 % ДИ — двусторонний бутстреп по МО и месяцам</p><div id="sSig"></div></div></div>
+<div class="foot"><span>Максим Караханов · На каждом горизонте 6 целевых месяцев · ансамбль лучше во всех 6 из 6</span><b>3</b></div></section>
+
+<section class="slide"><span class="tag">Foundation models</span><h2>Решает <em>подготовка входа</em></h2>
+<div class="row c2"><div class="card"><h3>Сырой ряд против отклонения МО</h3><p>MAE на 1 месяц</p><div class="chart"><canvas id="chFm"></canvas></div></div>
+<div class="card"><h3>Выводы</h3><ul class="clean" id="sFm"></ul></div></div><div class="foot"><span>Максим Караханов · Chronos-2 · Chronos-Bolt · TimesFM-2.5 · TiRex · LoRA</span><b>4</b></div></section>
+
+<section class="slide"><span class="tag">Детекция</span><h2>12 детекторов при <em>равных ложных тревогах</em></h2>
+<div class="row c2"><div class="card"><h3>Полнота против частоты ложных тревог</h3><p>пунктир — случайные тревоги</p><div class="chart"><canvas id="chFar"></canvas></div></div>
+<div class="card"><h3>Полнота по величине шока</h3><p>3 ложные тревоги на 100 ряд-месяцев</p><div class="chart"><canvas id="chMag"></canvas></div></div></div>
+<div class="foot"><span>Максим Караханов · 108 полусинтетических сценариев: форма × величина × охват</span><b>5</b></div></section>
+
+<section class="slide"><span class="tag">Реальные события</span><h2>Паводок 2024: тревоги в <em id="sLift">2,35</em> раза чаще фона</h2>
+<div class="row c2"><div class="card"><h3>Детекторы на паводке апреля 2024</h3><div id="sReal"></div></div>
+<div class="card"><h3>Рабочая схема</h3><ul class="clean"><li><b>Ряд МО:</b> BOCPD + новостной hazard — локальный разрыв.</li><li><b>МО / регион:</b> Stouffer по категориям и соседи по дорогам.</li><li><b>Категория по стране:</b> доля тревог больше 2 × FAR — системный сдвиг, не локальный шок.</li><li>32 региональных режима ЧС из актов (пожары, засуха) расходы не меняют — детекторы их правильно не замечают.</li></ul></div></div>
+<div class="foot"><span id="sNc">Максим Караханов · Точный тест Фишера для заранее заявленного детектора</span><b>6</b></div></section>
+
+<section class="slide"><span class="tag">Новости</span><h2>Где искать шок — <em>адрес из текста</em></h2>
+<div class="row c2"><div class="card"><h3>Ошибка прогноза на 1 месяц, паводок апреля 2024</h3><div class="chart"><canvas id="chFlood"></canvas></div></div>
+<div class="card"><h3>Согласование с данными СберИндекса</h3><ul class="clean" id="sNews"></ul></div></div>
+<div class="foot"><span>Максим Караханов · Lenta.ru · ГУ МЧС · акты pravo.gov.ru · as-of по дате публикации</span><b>7</b></div></section>
+
+<section class="slide"><span class="tag">Эпизоды</span><h2>Реальные эпизоды <em>2024 года</em></h2>
+<div class="row c3" id="sCases"></div><div class="foot"><span>Максим Караханов · Маркетплейсы, ₽ на жителя · зелёные точки — тревоги детектора</span><b>8</b></div></section>
+
+<section class="slide"><span class="tag">Итоги</span><h2>Что получилось и <em>что дальше</em></h2>
+<div class="row c3"><div class="card"><h3>Проверки</h3><ul class="clean" id="sCheck"></ul></div>
+<div class="card"><h3>Выводы</h3><ul class="clean"><li>Общая динамика страны — главный источник точности; Prophet проигрывает даже простой панельной модели.</li><li>Дальше 3 месяцев локальную динамику предсказать почти нечем.</li><li>Новости полезны детектору и как объяснение тревог, но не прогнозу.</li></ul></div>
+<div class="card"><h3>Дальше</h3><ul class="clean"><li>Макромодель национальной части: ИПЦ, обороты, доля онлайн-покупок.</li><li>Новости ГУ МЧС: собраны по 52 регионам — подать их в hazard детектора.</li><li>Муниципальные данные 2025 г. для проверки на новом году.</li></ul></div></div>
+<div class="foot"><span>Максим Караханов · python run_all.py · ноутбук Colab одной кнопкой · 20 тестов</span><b>9</b></div></section>
+
+<script>const DATA={"models": [{"name": "Chronos-2 совместный + LoRA (дообучение до 12.2023) на d", "mae": [324.0, 428.0, 543.0, 647.0], "r2": [0.75, 0.58, 0.34, -0.03]}, {"name": "Ансамбль (Caruana по группам h)", "mae": [325.0, 426.0, 525.0, 518.0], "r2": [0.76, 0.61, 0.41, 0.14]}, {"name": "TimesFM-2.5 на d", "mae": [326.0, 424.0, 527.0, 575.0], "r2": [0.76, 0.6, 0.41, 0.09]}, {"name": "Chronos-2 (6 категорий совместно) на d", "mae": [327.0, 433.0, 556.0, 656.0], "r2": [0.75, 0.58, 0.33, -0.04]}, {"name": "Ансамбль без foundation models (абляция)", "mae": [332.0, 436.0, 525.0, 518.0], "r2": [0.74, 0.59, 0.41, 0.14]}, {"name": "Chronos-2 (одномерный) на d", "mae": [332.0, 442.0, 565.0, 659.0], "r2": [0.75, 0.56, 0.3, -0.07]}, {"name": "Chronos-Bolt (base) на d", "mae": [332.0, 441.0, 555.0, 668.0], "r2": [0.75, 0.57, 0.31, -0.07]}, {"name": "Chronos-Bolt (small) на d", "mae": [333.0, 446.0, 565.0, 656.0], "r2": [0.74, 0.55, 0.29, -0.04]}, {"name": "LightGBM на d", "mae": [333.0, 441.0, 556.0, 550.0], "r2": [0.74, 0.57, 0.37, 0.15]}, {"name": "LightGBM v2 на d (без региона)", "mae": [336.0, 450.0, 552.0, 547.0], "r2": [0.74, 0.56, 0.37, 0.15]}, {"name": "Сезонная наивная × рост", "mae": [341.0, 454.0, 655.0, 1951.0], "r2": [0.62, 0.42, -0.24, -4.96]}, {"name": "Панель: последнее отклонение", "mae": [341.0, 463.0, 545.0, 520.0], "r2": [0.73, 0.51, 0.32, 0.13]}, {"name": "Панель: SES(0.5) на d", "mae": [346.0, 451.0, 531.0, 519.0], "r2": [0.74, 0.56, 0.39, 0.16]}, {"name": "Панель: уровень + сезонность d", "mae": [348.0, 442.0, 527.0, 521.0], "r2": [0.71, 0.57, 0.41, 0.14]}, {"name": "Наивная (последнее значение)", "mae": [624.0, 864.0, 1124.0, 1289.0], "r2": [0.62, 0.0, -0.63, -0.9]}, {"name": "Prophet (по умолчанию) — вся панель", "mae": [635.0, 725.0, 746.0, 1046.0], "r2": [0.48, 0.09, -0.51, -1.95]}, {"name": "Сезонная наивная", "mae": [1289.0, 1289.0, 1289.0, 1289.0], "r2": [-0.9, -0.9, -0.9, -0.9]}], "mae_chart": [{"name": "Ансамбль", "values": [325.0, 426.0, 525.0, 518.0]}, {"name": "TimesFM-2.5", "values": [326.0, 424.0, 527.0, 575.0]}, {"name": "Chronos-2", "values": [327.0, 433.0, 556.0, 656.0]}, {"name": "LightGBM", "values": [333.0, 441.0, 556.0, 550.0]}, {"name": "Простая панельная", "values": [348.0, 442.0, 527.0, 521.0]}, {"name": "Prophet", "values": [635.0, 725.0, 746.0, 1046.0]}], "sig": [{"vs": "Prophet по умолчанию, вся панель", "h": 1, "a": 325.0, "b": 635.0, "rel": -49.0, "lo": -590.0, "hi": -100.0, "months": 100.0, "mo": 99.7, "p": 0.031, "dm": 0.081}, {"vs": "Prophet по умолчанию, вся панель", "h": 3, "a": 426.0, "b": 725.0, "rel": -41.0, "lo": -538.0, "hi": -136.0, "months": 100.0, "mo": 98.8, "p": 0.031, "dm": 0.203}, {"vs": "Prophet по умолчанию, вся панель", "h": 6, "a": 525.0, "b": 746.0, "rel": -30.0, "lo": -349.0, "hi": -126.0, "months": 100.0, "mo": 91.1, "p": 0.031, "dm": 0.28}, {"vs": "Prophet по умолчанию, вся панель", "h": 12, "a": 518.0, "b": 1046.0, "rel": -50.0, "lo": -634.0, "hi": -411.0, "months": 100.0, "mo": 96.8, "p": 0.031, "dm": 0.06}, {"vs": "Лучший Prophet задним числом", "h": 1, "a": 330.0, "b": 464.0, "rel": -29.0, "lo": -176.0, "hi": -93.0, "months": 100.0, "mo": 87.0, "p": 0.031, "dm": 0.001}, {"vs": "Лучший Prophet задним числом", "h": 3, "a": 429.0, "b": 598.0, "rel": -28.0, "lo": -211.0, "hi": -128.0, "months": 100.0, "mo": 79.0, "p": 0.031, "dm": 0.0}, {"vs": "Лучший Prophet задним числом", "h": 6, "a": 543.0, "b": 742.0, "rel": -27.0, "lo": -267.0, "hi": -129.0, "months": 100.0, "mo": 77.0, "p": 0.031, "dm": 0.145}, {"vs": "Лучший Prophet задним числом", "h": 12, "a": 520.0, "b": 1071.0, "rel": -51.0, "lo": -680.0, "hi": -425.0, "months": 100.0, "mo": 98.0, "p": 0.031, "dm": 0.068}], "fm_ablation": [{"name": "Chronos-Bolt base", "raw": 668.0, "d": 335.0}, {"name": "Chronos-Bolt small", "raw": 696.0, "d": 335.0}, {"name": "Chronos-2", "raw": 607.0, "d": 334.0}, {"name": "TimesFM-2.5", "raw": 554.0, "d": 328.0}], "lora": [{"name": "Chronos-2 совместный, LoRA (обучение до 12.2023)", "mae": [325.0, 427.0, 540.0, 631.0]}, {"name": "Chronos-2 совместный, zero-shot", "mae": [327.0, 431.0, 554.0, 680.0]}], "far_curve": [{"name": "BOCPD + новости", "values": [14.5, 27.2, 36.2]}, {"name": "BOCPD", "values": [13.9, 25.6, 33.8]}, {"name": "Комбо: BOCPD ∨ Stouffer-МО", "values": [13.1, 24.4, 32.0]}, {"name": "z-score (инновация)", "values": [11.7, 22.6, 30.5]}, {"name": "Stouffer-МО", "values": [12.5, 21.6, 28.0]}, {"name": "GLR (онлайн-разрыв)", "values": [10.9, 20.7, 27.2]}, {"name": "Комбо: оконный ∨ Stouffer ∨ пространств.", "values": [9.3, 18.6, 25.4]}, {"name": "EWMA", "values": [9.1, 18.8, 25.4]}, {"name": "CUSUM оконный", "values": [8.1, 16.6, 22.1]}, {"name": "Пространственный", "values": [6.9, 13.9, 19.5]}, {"name": "Page-Hinkley", "values": [4.3, 10.3, 15.4]}, {"name": "Случайные тревоги (ориентир)", "values": [3.0, 8.7, 14.3]}, {"name": "CUSUM классический", "values": [2.1, 6.9, 11.1]}], "magnitude": [{"name": "BOCPD + новости", "values": [8.7, 13.5, 31.0, 55.7]}, {"name": "BOCPD", "values": [7.8, 12.4, 28.7, 53.7]}, {"name": "z-score (инновация)", "values": [8.7, 11.2, 24.4, 46.1]}, {"name": "Stouffer-МО", "values": [6.0, 8.5, 23.2, 48.5]}], "detectors": [{"name": "BOCPD + новости", "recall": 0.272, "onset": 0.183, "delay": 0.54, "precision": 0.184, "f1": 0.179}, {"name": "BOCPD", "recall": 0.256, "onset": 0.169, "delay": 0.59, "precision": 0.176, "f1": 0.17}, {"name": "Комбо: BOCPD ∨ Stouffer-МО", "recall": 0.244, "onset": 0.14, "delay": 0.67, "precision": 0.15, "f1": 0.156}, {"name": "z-score (инновация)", "recall": 0.226, "onset": 0.161, "delay": 0.56, "precision": 0.157, "f1": 0.147}, {"name": "Stouffer-МО", "recall": 0.216, "onset": 0.06, "delay": 0.89, "precision": 0.125, "f1": 0.135}, {"name": "GLR (онлайн-разрыв)", "recall": 0.207, "onset": 0.103, "delay": 0.76, "precision": 0.144, "f1": 0.138}, {"name": "EWMA", "recall": 0.188, "onset": 0.099, "delay": 0.68, "precision": 0.141, "f1": 0.127}, {"name": "Комбо: оконный ∨ Stouffer ∨ пространств.", "recall": 0.186, "onset": 0.047, "delay": 0.93, "precision": 0.113, "f1": 0.115}, {"name": "CUSUM оконный", "recall": 0.166, "onset": 0.052, "delay": 0.88, "precision": 0.107, "f1": 0.102}, {"name": "Пространственный", "recall": 0.139, "onset": 0.046, "delay": 0.85, "precision": 0.102, "f1": 0.095}, {"name": "Page-Hinkley", "recall": 0.103, "onset": 0.046, "delay": 0.7, "precision": 0.089, "f1": 0.072}, {"name": "CUSUM классический", "recall": 0.069, "onset": 0.034, "delay": 0.6, "precision": 0.076, "f1": 0.053}], "comparable": [{"setup": "Вся наша сетка (3–20 %, 3 формы, 3 охвата)", "far": 3, "recall": 0.27, "onset": 0.18, "precision": 0.18, "f1": 0.18}, {"setup": "Шоки 5–20 %", "far": 3, "recall": 0.33, "onset": 0.23, "precision": 0.22, "f1": 0.22}, {"setup": "Шоки 10–20 %", "far": 3, "recall": 0.43, "onset": 0.3, "precision": 0.27, "f1": 0.28}, {"setup": "Ступеньки 5–20 %", "far": 3, "recall": 0.39, "onset": 0.31, "precision": 0.24, "f1": 0.25}, {"setup": "Шоки 5–20 %, охват МО (все категории)", "far": 3, "recall": 0.34, "onset": 0.24, "precision": 0.15, "f1": 0.2}, {"setup": "Шоки 5–20 %", "far": 5, "recall": 0.43, "onset": 0.29, "precision": 0.2, "f1": 0.23}], "recall_big": 43.0, "real": [{"name": "BOCPD + новости", "named": 9.6, "base": 4.1, "lift": 2.36, "p": 0.008, "acts": 3.5, "placebo": 3.8, "lift_acts": 0.91}, {"name": "z-score (инновация)", "named": 12.3, "base": 5.3, "lift": 2.33, "p": 0.003, "acts": 4.5, "placebo": 4.8, "lift_acts": 0.93}, {"name": "Выход за интервал Chronos-2", "named": 11.4, "base": 5.0, "lift": 2.29, "p": 0.005, "acts": 4.7, "placebo": 4.7, "lift_acts": 0.99}, {"name": "BOCPD", "named": 7.9, "base": 4.1, "lift": 1.9, "p": 0.049, "acts": 3.3, "placebo": 3.7, "lift_acts": 0.87}, {"name": "EWMA", "named": 7.9, "base": 5.0, "lift": 1.56, "p": 0.125, "acts": 3.8, "placebo": 4.1, "lift_acts": 0.94}, {"name": "CUSUM оконный", "named": 2.6, "base": 2.7, "lift": 0.98, "p": 0.595, "acts": 3.9, "placebo": 3.4, "lift_acts": 1.13}, {"name": "GLR (онлайн-разрыв)", "named": 0.9, "base": 2.8, "lift": 0.32, "p": 0.958, "acts": 3.2, "placebo": 3.2, "lift_acts": 1.0}, {"name": "Stouffer-МО", "named": 0.0, "base": 2.3, "lift": 0.0, "p": 1.0, "acts": 4.3, "placebo": 3.8, "lift_acts": 1.13}, {"name": "Пространственный", "named": 0.0, "base": 2.0, "lift": 0.0, "p": 1.0, "acts": 3.2, "placebo": 2.3, "lift_acts": 1.4}], "noncirc": {"lift": 2.39, "p": 0.007, "n": 19}, "flood": [{"label": ["Все категории", "апрель"], "named": 0.9, "region": 2.8, "rest": 1.9}, {"label": ["Все категории", "май"], "named": -0.9, "region": -1.7, "rest": -0.9}, {"label": ["Маркетплейсы", "апрель"], "named": 7.8, "region": 12.8, "rest": 14.1}, {"label": ["Маркетплейсы", "май"], "named": 8.8, "region": 4.1, "rest": 5.6}, {"label": ["Транспорт", "апрель"], "named": 4.0, "region": 0.8, "rest": 4.3}, {"label": ["Транспорт", "май"], "named": -3.8, "region": 0.3, "rest": 0.7}], "audit": {"событий в выборке": 60.0, "тип верен, %": 91.7, "территория верна, %": 98.3, "полностью верно, %": 90.0, "МО распознано без потерь, %": 93.3}, "sens_max": 3.5, "mchs": {"n": 1792, "mo": 76}, "all_events": {"n": 361, "regions": 56, "mchs_regions": 52, "sig": [{"cat": "Маркетплейсы", "shift": 0.2, "p": 0.0}, {"cat": "Общественное питание", "shift": 0.1, "p": 0.006}]}, "es_cats": [{"cat": "Все категории", "shift": -0.029, "lo": -0.079, "hi": 0.022, "p": 0.231}, {"cat": "Продовольствие", "shift": -0.042, "lo": -0.107, "hi": 0.018, "p": 0.151}, {"cat": "Маркетплейсы", "shift": 0.198, "lo": 0.087, "hi": 0.319, "p": 0.0}, {"cat": "Здоровье", "shift": 0.033, "lo": -0.038, "hi": 0.114, "p": 0.37}, {"cat": "Общественное питание", "shift": 0.103, "lo": 0.029, "hi": 0.188, "p": 0.006}, {"cat": "Транспорт", "shift": 0.022, "lo": -0.041, "hi": 0.079, "p": 0.491}], "cases": [{"name": "муниципальный округ Торопецкий", "note": "атака и эвакуация жителей, сентябрь 2024", "dates": ["2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"], "values": [2855, 3246, 3641, 3106, 3406, 3688, 3832, 4345, 4228, 4694, 5596, 6294, 4092, 5035, 5819, 5204, 5307, 5300, 5688, 6238, 4710, 6229, 7128, 9069], "alarms": ["2024-09", "2024-10", "2024-11", "2024-12"]}, {"name": "городской округ город Орск", "note": "прорыв дамбы, 5 апреля 2024", "dates": ["2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"], "values": [1758, 2041, 2395, 2204, 2365, 2355, 2613, 2813, 3137, 3550, 4312, 4747, 3250, 3850, 4325, 3754, 4647, 4537, 4633, 4970, 4884, 5635, 6058, 6852], "alarms": ["2024-04", "2024-06", "2024-05"]}, {"name": "Саракташский муниципальный район", "note": "паводок, апрель 2024", "dates": ["2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"], "values": [1591, 1830, 2047, 1654, 1804, 1666, 2038, 2112, 2192, 2509, 3114, 3477, 2247, 3015, 3111, 2624, 2897, 2914, 2990, 3474, 3340, 3782, 4138, 4564], "alarms": ["2024-04", "2024-02", "2024-05", "2024-06"]}], "external": {"pred": 14.9, "fact": 14.1, "corr": 0.96}, "decomp": {"ens": [325.0, 426.0, 525.0, 518.0], "oracle": [225.0, 309.0, 366.0, 396.0]}, "kpi": {"rel": [-49.0, -41.0, -30.0, -50.0], "recall": 27.0, "random": 9.0, "lift": 2.36, "recall_big": 43.0}};const ANIM=false;</script>
+<script>
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const FONT="Manrope, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif";
+Chart.defaults.font.family=FONT;
+const charts=[];
+function fmt(v,d=0){if(v==null)return '—';const s=Math.abs(v).toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});return (v<0?'−':'')+s}
+function O(extra){const ink=css('--ink2'),grid=css('--grid'),f={family:FONT,size:12};
+ const o={responsive:true,maintainAspectRatio:false,animation:ANIM?{duration:1100,easing:'easeOutQuart'}:false,
+  plugins:{legend:{labels:{color:ink,font:f,boxWidth:10,boxHeight:10,usePointStyle:true,padding:14}},
+   tooltip:{backgroundColor:css('--card'),titleColor:css('--ink'),bodyColor:css('--ink2'),borderColor:css('--line'),borderWidth:1,padding:10,titleFont:{family:FONT,weight:'700'},bodyFont:f}},
+  scales:{x:{ticks:{color:ink,font:f},grid:{color:grid},border:{color:grid}},y:{ticks:{color:ink,font:f},grid:{color:grid},border:{color:grid},beginAtZero:true}}};
+ if(extra.xTitle)o.scales.x.title={display:true,text:extra.xTitle,color:css('--ink3'),font:f};
+ if(extra.yTitle)o.scales.y.title={display:true,text:extra.yTitle,color:css('--ink3'),font:f};
+ if(extra.yZero===false)o.scales.y.beginAtZero=false;
+ if(extra.noLegend)o.plugins.legend.display=false;
+ if(extra.xMax)o.scales.x.ticks.maxTicksLimit=extra.xMax;
+ if(extra.unit)o.plugins.tooltip.callbacks={label:c=>' '+c.dataset.label+': '+fmt(c.parsed.y,extra.dec||0)+extra.unit};
+ return o}
+const PAL=()=>[css('--s1'),css('--s2'),css('--s4'),css('--s3'),css('--s5'),css('--neg')];
+function mk(id,cfg){const el=document.getElementById(id);if(!el)return;charts.push({el,cfg,c:new Chart(el,cfg())})}
+function rebuild(){charts.forEach(x=>{x.c.destroy();x.c=new Chart(x.el,x.cfg())})}
+function line(s,i,dashed){const P=PAL(),c=dashed?css('--neg'):P[i%P.length];return{label:s.name,data:s.values,borderColor:c,backgroundColor:c,
+ borderWidth:i===0?4:2,borderDash:dashed?[6,5]:[],pointRadius:i===0?5:3,pointHoverRadius:7,tension:.25}}
+function drawAll(){
+ const H=['1 мес.','3 мес.','6 мес.','12 мес.'];
+ mk('chMae',()=>({type:'line',data:{labels:H,datasets:DATA.mae_chart.map((s,i)=>line(s,i,s.name==='Prophet'))},options:O({yTitle:'MAE, ₽ на жителя в месяц',unit:' ₽'})}));
+ mk('chFm',()=>({type:'bar',data:{labels:DATA.fm_ablation.map(x=>x.name),datasets:[
+  {label:'сырой ряд',data:DATA.fm_ablation.map(x=>x.raw),backgroundColor:css('--s5'),borderRadius:8},
+  {label:'отклонение МО (наш вход)',data:DATA.fm_ablation.map(x=>x.d),backgroundColor:css('--s1'),borderRadius:8}]},options:O({yTitle:'MAE на 1 мес., ₽',unit:' ₽'})}));
+ const keep=['BOCPD + новости','BOCPD','z-score (инновация)','Stouffer-МО','Случайные тревоги (ориентир)'];
+ const far=keep.map(n=>DATA.far_curve.find(x=>x.name===n)).filter(Boolean);
+ mk('chFar',()=>({type:'line',data:{labels:['1 %','3 %','5 %'],datasets:far.map((s,i)=>line(s,i,s.name.startsWith('Случайные')))},
+  options:O({xTitle:'ложных тревог на 100 ряд-месяцев',yTitle:'полнота, %',unit:' %',dec:1})}));
+ mk('chMag',()=>({type:'bar',data:{labels:['3 %','5 %','10 %','20 %'],datasets:DATA.magnitude.map((s,i)=>({label:s.name,data:s.values,backgroundColor:PAL()[i],borderRadius:6}))},
+  options:O({xTitle:'величина шока',yTitle:'полнота при 3 % ложных, %',unit:' %',dec:1})}));
+ mk('chFlood',()=>({type:'bar',data:{labels:DATA.flood.map(x=>x.label),datasets:[
+  {label:'МО из сообщений о ЧС',data:DATA.flood.map(x=>x.named),backgroundColor:css('--s1'),borderRadius:6},
+  {label:'другие МО тех же регионов',data:DATA.flood.map(x=>x.region),backgroundColor:css('--s2'),borderRadius:6},
+  {label:'остальная страна',data:DATA.flood.map(x=>x.rest),backgroundColor:css('--s5'),borderRadius:6}]},
+  options:O({yTitle:'ошибка прогноза на 1 мес., %',yZero:false,unit:' %',dec:1})}));
+ if(DATA.es_cats){const es=DATA.es_cats.filter(x=>x.cat!=='Все категории').concat(DATA.es_cats.filter(x=>x.cat==='Все категории'));
+  const thr=0.05/Math.max(1,DATA.es_cats.length-1),sg=x=>x.p<thr&&x.cat!=='Все категории';
+  mk('chEs',()=>{const o=O({yTitle:'сдвиг ошибки прогноза, σ',yZero:false});
+   o.plugins.tooltip.callbacks={label:c=>c.datasetIndex===0?' 95 % ДИ: '+fmt(c.raw[0],2)+' … '+fmt(c.raw[1],2)+'σ':' сдвиг '+fmt(c.parsed.y,2)+'σ, p '+(es[c.dataIndex].p<0.001?'< 0,001':'= '+fmt(es[c.dataIndex].p,3))};
+   return{type:'bar',data:{labels:es.map(x=>x.cat),datasets:[
+    {label:'95 % ДИ',data:es.map(x=>[x.lo,x.hi]),backgroundColor:es.map(x=>sg(x)?css('--glow'):'rgba(128,128,128,.14)'),borderColor:es.map(x=>sg(x)?css('--green'):css('--s5')),borderWidth:1.5,borderRadius:8,borderSkipped:false,barPercentage:.45},
+    {type:'line',label:'сдвиг, σ',data:es.map(x=>x.shift),showLine:false,pointRadius:8,pointHoverRadius:10,pointBackgroundColor:es.map(x=>sg(x)?css('--green'):css('--ink3')),pointBorderColor:css('--card'),pointBorderWidth:2}]},options:o}});}
+ DATA.cases.forEach((c,k)=>mk('chCase'+k,()=>({type:'line',data:{labels:c.dates,datasets:[
+  {label:'маркетплейсы, ₽ на жителя',data:c.values,borderColor:css('--ink2'),backgroundColor:css('--ink2'),borderWidth:2,pointRadius:0,tension:.25},
+  {label:'тревога детектора',data:c.dates.map((d,i)=>c.alarms.includes(d)?c.values[i]:null),showLine:false,pointRadius:7,pointHoverRadius:9,
+   pointBackgroundColor:css('--green'),pointBorderColor:css('--card'),pointBorderWidth:2}]},
+  options:O({yZero:false,noLegend:k>0,xMax:6,unit:' ₽'})})));
+}
+function tbl(head,rows,hl){return '<div class="tw"><table><thead><tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+
+ rows.map((r,i)=>'<tr'+(hl&&hl(i)?' class="hl"':'')+'>'+r.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
+function li(xs){return xs.filter(Boolean).map(x=>'<li>'+x+'</li>').join('')}
+const LORA=()=>{const l=DATA.lora||[];return{L:l.find(x=>x.name.includes('LoRA')),Z:l.find(x=>x.name.includes('zero'))}};
+
+const K=DATA.kpi;
+document.getElementById('sKpi').innerHTML=[[fmt(K.rel[0])+' %','MAE против Prophet, 1 месяц'],[fmt(K.rel[3])+' %','MAE против Prophet, 12 месяцев'],
+ [fmt(K.recall)+' %','полнота детектора при 3 % ложных тревог'+(K.recall_big?' (на шоках 10–20 % — '+fmt(K.recall_big)+' %)':'')],[fmt(K.lift,2)+'×','тревоги на паводке чаще фона']].map(x=>'<div class="card kpi"><div class="v">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>').join('');
+document.getElementById('sSig').innerHTML=tbl(['сравнение','горизонт','ансамбль','Prophet','разница','95 % ДИ, ₽'],
+ DATA.sig.map(s=>[s.vs.startsWith('Лучший')?'лучший Prophet':'Prophet, вся панель',s.h+' мес.',fmt(s.a),fmt(s.b),'<span class="good">'+fmt(s.rel)+' %</span>',fmt(s.lo)+' … '+fmt(s.hi)]));
+const {L,Z}=LORA();
+document.getElementById('sFm').innerHTML=li(['На сыром ряду из 7–23 точек модели не видят годового цикла; на отклонении МО они в <b>1,7–2 раза точнее</b>.',
+ '<b>TimesFM-2.5</b> — лучшая одиночная модель; Chronos-2 совместно по 6 категориям точнее одномерного.',
+ L&&Z?'<b>LoRA-дообучение</b> Chronos-2 (данные до 12.2023): '+fmt(L.mae[2])+' против '+fmt(Z.mae[2])+' на 6 месяцев.':'',
+ 'Вклад FM в ансамбль: <b>−2…−3 %</b> MAE на 1–3 месяца.','Выход факта за интервал Chronos-2 — сильный детектор шоков.']);
+document.getElementById('sLift').textContent=fmt(K.lift,2);
+if(DATA.noncirc)document.getElementById('sNc').textContent='Максим Караханов · Без круга (группа — ГУ МЧС, hazard — Lenta.ru и акты): '+fmt(DATA.noncirc.lift,2)+'×, p = '+fmt(DATA.noncirc.p,3)+' · точный тест Фишера';
+document.getElementById('sReal').innerHTML=tbl(['детектор','МО с ЧС','страна','эффект','p'],DATA.real.map(r=>[r.name,fmt(r.named,1)+' %',fmt(r.base,1)+' %','<b>'+fmt(r.lift,2)+'×</b>',fmt(r.p,3)]),i=>i===0);
+const A=DATA.audit;
+document.getElementById('sNews').innerHTML=li(['<b>Геопривязка</b> к territory_id через справочник СберИндекса, омонимы — по региону.',
+ '<b>Экспозиция МО × месяц</b> с долей месяца после публикации; только опубликованное к моменту прогноза.',
+ '<b>Ручной аудит:</b> '+fmt(A['полностью верно, %'])+' % событий размечены полностью верно.','При шумовых новостях выигрыша нет — prior не «оракул».',
+ 'Новости не улучшают месячный прогноз — их роль в детекции.']);
+document.getElementById('sCases').innerHTML=DATA.cases.map((c,i)=>'<div class="card"><h3>'+c.name+'</h3><p>'+c.note+'</p><div class="chart"><canvas id="chCase'+i+'"></canvas></div></div>').join('');
+const E=DATA.external||{};
+document.getElementById('sCheck').innerHTML=li(['<b>2025 г.:</b> прогноз роста +'+fmt(E.pred,1)+' % против факта +'+fmt(E.fact,1)+' %.',
+ '<b>Бутстреп и знаковый тест:</b> лучше Prophet в 6 из 6 месяцев на каждом горизонте.','Независимый прогон в Colab (T4) повторил результаты.',
+ 'Журнал решений, принятых после просмотра результатов.']);
+document.fonts.ready.then(drawAll);
+</script></body></html>

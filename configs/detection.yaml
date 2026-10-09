@@ -1,0 +1,38 @@
+# Настройки обнаружения структурных сдвигов.
+calib_end: "2023-12"          # σ инноваций оцениваем по 2023 г. (без месяца-артефакта)
+monitor: ["2024-01", "2024-12"]
+onset: ["2024-02", "2024-10"] # начало синтетических шоков (чтобы окно допуска влезло в данные)
+
+deviation:
+  season_alpha: 0.0           # доля сезонности прошлого года в эталоне; 0 лучше на полусинтетике (проверены 0 и 0.5)
+
+params:
+  ewma: {lam: 0.4}
+  cusum: {k: 0.5}
+  cusum_w: {k: 0.5, window: 3}
+  page_hinkley: {delta: 0.25}
+  glr: {window: 8}
+  bocpd: {hazard: 0.02, kappa0: 0.05, sigma: 1.0, recent: 1}
+  spatial_w_self: 0.5
+
+grid:
+  fars: [0.01, 0.03, 0.05]      # ложных тревог на ряд-месяц
+  magnitudes: [0.03, 0.05, 0.10, 0.20]
+  shapes: [step, dip, ramp]
+  scopes: [series, mo, cluster]
+  frac: 0.1                     # доля МО-центров шоков
+  seeds: 3
+
+news_sim:                       # симуляция новостей для BOCPD + новости
+  recall: 0.6                   # доля шоков, о которых есть новость
+  false_rate: 0.03              # ложные «новости» на ряд-месяц
+  mult: 8                       # множитель hazard в месяц новости
+
+offline:
+  methods: [pelt, binseg, bottomup, window, kernel]
+  n_series: 2000
+  magnitude: 0.10
+  tol: 1
+  target_false_per100: 3
+
+production_detector: "BOCPD + новости"   # лучший на полусинтетике при всех охватах и величинах

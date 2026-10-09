@@ -1,0 +1,23 @@
+.venv/
+data/
+outputs/cache/
+__pycache__/
+*.pyc
+hackathonlicence.zip
+*.rar
+.ipynb_checkpoints/
+outputs/forecasts/
+outputs/*.log
+# рабочие и личные материалы (не часть конкурсного решения)
+SOLUTION.md
+tz.txt
+reports/_draft_sections.md
+outputs/forecasts_v1/
+outputs/tables_v1/
+outputs/*.log
+sberindex_results.zip
+mchs_news_2024.zip
+
+# сырые выгрузки МЧС из Colab (копируются в data/news/mchs)
+news/
+HANDOFF.md

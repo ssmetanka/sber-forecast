@@ -1,0 +1,98 @@
+{
+ "data/hackathonlicence/consumption.parquet": {
+  "sha256": "9833ddaaee7b2a182ed4cceeed16469031700ea87d508bd976150c6770ef8a61",
+  "bytes": 2373939
+ },
+ "data/hackathonlicence/market_access.parquet": {
+  "sha256": "434258afe322b7e6e6610b2552d129ae47094613de72dae3d13f6965a28d1dc1",
+  "bytes": 25163
+ },
+ "data/hackathonlicence/connection.parquet": {
+  "sha256": "20cbd5213d3ac1d0a867f097b485431811614b283d7366eb5cba9f65dc80493d",
+  "bytes": 21904682
+ },
+ "data/raw/dict/t_dict_municipal_districts.xlsx": {
+  "sha256": "4150658c3298fbc87ed79838f503f3a5b9a28da33257ff803c7d9231ddb775d6",
+  "bytes": 322024
+ },
+ "data/raw/portal/consumer_spending.parquet": {
+  "sha256": "670a4aaade034437794b9e90aa520709a4f2c14b4318c59c12978fb8433f0888",
+  "bytes": 4009
+ },
+ "data/news/headlines.parquet": {
+  "sha256": "0debfd2f0ecb7b3b389583e785dbff95b6b42b43220630ce715c55935d9e6811",
+  "bytes": 9056638
+ },
+ "data/news/events.parquet": {
+  "sha256": "a1503c0ee0ca1b2f2f3517c4d2b95d62157c8109fcdef75f9e09fe9319cb9081",
+  "bytes": 349696
+ },
+ "data/news/acts.parquet": {
+  "sha256": "7c023d2c7ad74f8e4ab78f84dce58a7a4d36a2766a046491b2a366e0044f096f",
+  "bytes": 83951
+ },
+ "data/news/events_official.parquet": {
+  "sha256": "c1d2bb78b3a300cb60aabc84fcf2ad5d7e33f59602af989a483cb1c7d73822af",
+  "bytes": 130343
+ },
+ "data/news/mchs/01_2024-01-01_2024-12-31.parquet": {
+  "sha256": "012ff0ad7d705b917adcb181bef4446ec868e87bf4fb8de6b0438e95229fa634",
+  "bytes": 106333
+ },
+ "data/news/mchs/01_2024-03-25_2024-05-31.parquet": {
+  "sha256": "c9f331b0fa1099c2ff2c56d92ae552c50ad15cd37e5f95df666fead01bb20e7b",
+  "bytes": 68401
+ },
+ "data/news/mchs/02_2024-01-01_2024-12-31.parquet": {
+  "sha256": "2e242e5d20834d184181cd146180d2a0527a898817708884c08336acc0431afb",
+  "bytes": 88817
+ },
+ "data/news/mchs/02_2024-03-25_2024-05-31.parquet": {
+  "sha256": "c5f0ea1a3f6e4ae8aae1c59c3234759577e7f24362b8ba39aedc7adff795d653",
+  "bytes": 53767
+ },
+ "data/news/mchs/03_2024-01-01_2024-12-31.parquet": {
+  "sha256": "ec86b363fb721b377e1c2a638669e57fe9571464a426f7203353753e9498b035",
+  "bytes": 124663
+ },
+ "data/news/mchs/03_2024-03-25_2024-05-31.parquet": {
+  "sha256": "c3b293fbd18720bb54afdef130c4a9c6c289ab0e63275c7c0409c4b46383e5a6",
+  "bytes": 62177
+ },
+ "data/news/mchs/04_2024-01-01_2024-12-31.parquet": {
+  "sha256": "221ba3b1a8f99b1b1e6001089ffd37e0bb64c803e679b7d5f645e577e05be3c4",
+  "bytes": 61664
+ },
+ "data/news/mchs/04_2024-03-25_2024-05-31.parquet": {
+  "sha256": "1d772475516a25291aa2b70854562a372d4378addfbae76679807aa65db2109e",
+  "bytes": 7888
+ },
+ "data/news/mchs/05_2024-01-01_2024-12-31.parquet": {
+  "sha256": "a6f46db1944e3693778b6d944a6a3e4a0cf09baf6dafe1e880b2a384e3a11c03",
+  "bytes": 100997
+ },
+ "data/news/mchs/06_2024-01-01_2024-12-31.parquet": {
+  "sha256": "9fab783cb5b6ddd5b321f3dba24b7e81a264feb6fe48b5f29f27c5e655e7f0ae",
+  "bytes": 111821
+ },
+ "data/news/mchs/07_2024-01-01_2024-12-31.parquet": {
+  "sha256": "9a3acbb3435a71f760dd4f57a94cb55a3f218daba82b2198ada2e57806e07f28",
+  "bytes": 124813
+ },
+ "data/news/mchs/08_2024-01-01_2024-12-31.parquet": {
+  "sha256": "63eaa34008601038d12e5635d259b11023a5b9a218ecc69f70bfcb4473bbeaa8",
+  "bytes": 92473
+ },
+ "data/news/mchs/45_2024-03-25_2024-05-31.parquet": {
+  "sha256": "b7ac512a2b7750c97163dbc07690e58c83852e2e5f0f8a55a64b278743bac0f6",
+  "bytes": 109286
+ },
+ "data/news/mchs/56_2024-03-25_2024-05-31.parquet": {
+  "sha256": "3cb38fc13ad4a0bbb0f9f875c249ae4c38006829db8bd6563055d8d6b3b41436",
+  "bytes": 80125
+ },
+ "data/news/mchs/72_2024-03-25_2024-05-31.parquet": {
+  "sha256": "dbf31b648f54cd037e37b1f1a3e1658f3d5b6b7eef236cb68f341a119e5cbc17",
+  "bytes": 76647
+ }
+}

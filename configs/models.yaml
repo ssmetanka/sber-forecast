@@ -1,0 +1,60 @@
+# Гиперпараметры моделей прогнозирования.
+lgbm:
+  num_rounds: 300
+  max_rows: 700000         # подвыборка обучающих пар (ряд × origin × h) на каждом origin
+  params:
+    objective: l1
+    learning_rate: 0.07
+    num_leaves: 63
+    min_data_in_leaf: 200
+    feature_fraction: 0.8
+    bagging_fraction: 0.7
+    bagging_freq: 1
+    lambda_l2: 1.0
+    num_threads: 12
+
+# вариант 2: без категориального региона (переобучение на региональные эпизоды), сильнее регуляризация
+lgbm_v2:
+  num_rounds: 300
+  max_rows: 700000
+  drop: [region, lat, lon]
+  params:
+    objective: l1
+    learning_rate: 0.05
+    num_leaves: 31
+    min_data_in_leaf: 1000
+    feature_fraction: 0.7
+    bagging_fraction: 0.7
+    bagging_freq: 1
+    lambda_l2: 10.0
+    num_threads: 12
+
+prophet:
+  configs: [default, yearly]
+  sample_mo: 500           # случайная выборка МО (все 6 категорий), seed из default.yaml
+  subsample_configs: [yearly, local]   # дорогие конфигурации — на вложенной подвыборке (--subsample 200)
+  n_jobs: 16
+
+foundation:
+  threads: 8
+  # zero-shot на локальной компоненте d, без дообучения (контекст 12–23 точки)
+  chronos_bolt: {model_id: amazon/chronos-bolt-base, batch_size: 1024}
+  chronos_bolt_small: {model_id: amazon/chronos-bolt-small, batch_size: 1024}
+  chronos2: {model_id: amazon/chronos-2, batch_size: 256}
+  timesfm: {model_id: google/timesfm-2.5-200m-pytorch, batch_size: 512}
+  tirex: {model_id: NX-AI/TiRex, batch_size: 512}
+  # абляция: те же модели на сыром log y
+  raw_ablation: true
+
+ensemble:
+  method: caruana          # жадный отбор с возвращением по MAE на validation
+  rounds: 30
+
+finetune:                  # каузальный эксперимент: LoRA-дообучение Chronos-2 на данных до train_until
+  train_until: "2023-12"
+  prediction_length: 6
+  min_past: 3
+  learning_rate: 0.0001
+  num_steps: 300
+  batch_size: 64
+  threads: 6

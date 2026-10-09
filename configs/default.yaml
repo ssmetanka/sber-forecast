@@ -1,0 +1,45 @@
+# Общая конфигурация пайплайна. Все пути — относительно корня репозитория.
+seed: 42
+
+paths:
+  consumption: data/hackathonlicence/consumption.parquet
+  market_access: data/hackathonlicence/market_access.parquet
+  connection: data/hackathonlicence/connection.parquet
+  municipal_dict: data/raw/dict/t_dict_municipal_districts.xlsx
+  national: data/raw/portal/consumer_spending.parquet
+  cache: outputs/cache
+  forecasts: outputs/forecasts
+  tables: outputs/tables
+  figures: outputs/figures
+
+data:
+  start: "2023-01"
+  end: "2024-12"
+  # месяц с массовым одновременным скачком у 15–26 % МО (вероятный методологический артефакт)
+  artifact_months: ["2023-04"]
+
+backtest:
+  horizons: [1, 3, 6, 12]          # отчётные горизонты
+  max_h: 12
+  origins: ["2023-06", "2024-11"]  # первый и последний origin; ранние дают только цели 2024 г. (h = 12 → 6 целей)
+  min_context: 6                   # минимум месяцев истории до origin (первый origin — июнь 2023)
+  val_targets: ["2024-01", "2024-06"]   # выбор весов и гиперпараметров
+  test_targets: ["2024-07", "2024-12"]  # только для отчёта
+  # группы горизонтов, для которых подбираются отдельные веса ансамбля
+  horizon_groups: [[1, 2], [3, 4, 5], [6, 7, 8, 9, 10, 11, 12]]
+
+national:
+  # соответствие категорий СберИндекса МО и типов национального ряда портала
+  mapping:
+    "Все категории": "Всего"
+    "Продовольствие": "Продовольственные товары"
+    "Общественное питание": "Общественное питание"
+    "Маркетплейсы": "Непродовольственные товары"
+    "Здоровье": "Услуги"
+    "Транспорт": "Услуги"
+  season_years: 3        # сколько прошлых лет усреднять для сезонного профиля
+  damping: 0.5           # демпфирование экстраполяции годового роста
+  nat_lag: 1             # as-of: на origin используем национальный ряд портала с лагом 1 мес. (страховка от пересмотров)
+
+spatial:
+  k_neighbors: 10        # соседи по автодорожному расстоянию
